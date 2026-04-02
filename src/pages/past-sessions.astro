@@ -8,6 +8,9 @@ const sessions = await getCollection('sessions');
 const pastSessions = sessions
   .filter(s => s.data.completed)
   .sort((a, b) => a.data.week - b.data.week);
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
 
 // Helper: resolve a participant ID to their data
 function resolve(id: string) {
@@ -29,7 +32,7 @@ function resolve(id: string) {
         No sessions yet — we haven't started!
       </p>
       <p style="font-size: 0.9rem; color: var(--text-tertiary); margin-bottom: 0;">
-        Check the <a href={`${import.meta.env.BASE_URL}roadmap`}>Roadmap</a> to see what's coming up.
+        Check the <a href={`${base}roadmap`}>Roadmap</a> to see what's coming up.
       </p>
     </div>
   ) : (
