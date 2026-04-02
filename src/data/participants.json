@@ -3,7 +3,14 @@
     "name": "Michele",
     "surname": "Vannucci",
     "link": "https://michelevannucci.me",
-    "affiliation": "University of Amsterdam",
+    "affiliation": "Vrije Universiteit Amsterdam",
+    "role": "Master's Graduate"
+  },
+  "arturo": {
+    "name": "Arturo",
+    "surname": "Abril",
+    "link": "https://www.linkedin.com/in/arturo-abril/",
+    "affiliation": "Vrije Universiteit Amsterdam",
     "role": "Master's Graduate"
   }
 }
