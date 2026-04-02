@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ParticipantChip from '../components/ParticipantChip.astro';
+import { getCollection } from 'astro:content';
+import participants from '../data/participants.json';
+
+const sessions = await getCollection('sessions');
+const pastSessions = sessions
+  .filter(s => s.data.completed)
+  .sort((a, b) => a.data.week - b.data.week);
+
+// Helper: resolve a participant ID to their data
+function resolve(id: string) {
+  const p = (participants as Record<string, any>)[id];
+  return p ?? { name: id, surname: '' };
+}
+---
+
+<Layout title="Past Sessions" activePage="past-sessions">
+
+  <div class="page-header">
+    <h1>Past Sessions</h1>
+    <p class="subtitle">A record of what we've read and discussed.</p>
+  </div>
+
+  {pastSessions.length === 0 ? (
+    <div class="glass-card-static" style="text-align: center; padding: 64px 32px;">
+      <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 8px;">
+        No sessions yet — we haven't started!
+      </p>
+      <p style="font-size: 0.9rem; color: var(--text-tertiary); margin-bottom: 0;">
+        Check the <a href={`${import.meta.env.BASE_URL}roadmap`}>Roadmap</a> to see what's coming up.
+      </p>
+    </div>
+  ) : (
+    <div class="session-log">
+      {pastSessions.map((session) => {
+        const presenter = session.data.presenter ? resolve(session.data.presenter) : null;
+        const attendees = (session.data.participants ?? []).map(resolve);
+
+        return (
+          <article class="glass-card session-card">
+            <div class="meta">
+              <span class={`badge badge-${session.data.theme}`}>
+                {session.data.theme === 'sota' ? 'State of the Art' :
+                 session.data.theme.charAt(0).toUpperCase() + session.data.theme.slice(1)}
+              </span>
+              <span>Week {session.data.week}</span>
+              {session.data.date && <span>&middot; {session.data.date}</span>}
+            </div>
+
+            <div>
+              <a href={session.data.paperUrl} target="_blank" rel="noopener" class="paper-title">
+                {session.data.paperTitle}
+              </a>
+              <div class="authors">{session.data.paperAuthors}, {session.data.paperYear}</div>
+            </div>
+
+            {session.data.youtubeId && (
+              <div class="yt-embed">
+                <iframe
+                  src={`https://www.youtube.com/embed/${session.data.youtubeId}`}
+                  title={`Week ${session.data.week} recording`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            )}
+
+            {(presenter || attendees.length > 0) && (
+              <div>
+                <div class="companion-label">Participants</div>
+                <div class="participants">
+                  {presenter && (
+                    <ParticipantChip
+                      name={presenter.name}
+                      surname={presenter.surname}
+                      isPresenter={true}
+                    />
+                  )}
+                  {attendees
+                    .filter((a: any) => !session.data.presenter || a.name !== presenter?.name || a.surname !== presenter?.surname)
+                    .map((a: any) => (
+                      <ParticipantChip
+                        name={a.name}
+                        surname={a.surname}
+                      />
+                    ))
+                  }
+                </div>
+              </div>
+            )}
+
+            {session.data.discussionNotes && (
+              <div>
+                <div class="companion-label">Discussion notes</div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0;">
+                  {session.data.discussionNotes}
+                </p>
+              </div>
+            )}
+          </article>
+        );
+      })}
+    </div>
+  )}
+
+</Layout>

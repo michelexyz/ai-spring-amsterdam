@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import PixelBlossoms from '../components/PixelBlossoms.astro';
+
+interface Props {
+  title: string;
+  activePage?: string;
+}
+
+const { title, activePage = '' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AI Spring Amsterdam — A weekly reading group exploring the foundations of intelligence and AI safety. Papers & coffee in Amsterdam." />
+  <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+  <title>{title} | AI Spring Amsterdam</title>
+</head>
+<body>
+  <PixelBlossoms />
+  <Navbar activePage={activePage} />
+
+  <main class="container page-content">
+    <slot />
+  </main>
+
+  <footer>
+    <p>AI Spring Amsterdam &mdash; thinking carefully about intelligence, together.</p>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+    toggle?.addEventListener('click', () => {
+      links?.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>

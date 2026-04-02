@@ -1,0 +1,103 @@
+---
+interface Props {
+  week: number;
+  theme: 'foundation' | 'sota' | 'safety' | 'free';
+  date?: string;
+  paperTitle: string;
+  paperUrl: string;
+  paperAuthors: string;
+  paperYear: number;
+  description: string;
+  companionTitle: string;
+  companionUrl: string;
+  companionSource: string;
+  companionDescription?: string;
+  note?: string;
+  highlight?: boolean;
+  alternatives?: Array<{
+    label: string;
+    paperTitle: string;
+    paperUrl: string;
+    paperAuthors: string;
+    companionTitle: string;
+    companionUrl: string;
+  }>;
+}
+
+const themeLabels: Record<string, string> = {
+  foundation: 'Foundation',
+  sota: 'State of the Art',
+  safety: 'Safety',
+  free: 'Free Topic',
+};
+
+const {
+  week,
+  theme,
+  date,
+  paperTitle,
+  paperUrl,
+  paperAuthors,
+  paperYear,
+  description,
+  companionTitle,
+  companionUrl,
+  companionSource,
+  companionDescription,
+  note,
+  highlight = false,
+  alternatives,
+} = Astro.props;
+---
+
+<article class={`glass-card session-card ${highlight ? 'next-session' : ''}`}>
+  {highlight && <div class="label">Next Session</div>}
+
+  <div class="meta">
+    <span class={`badge badge-${theme}`}>{themeLabels[theme]}</span>
+    <span>Week {week}</span>
+    {date && <span>&middot; {date}</span>}
+  </div>
+
+  <div>
+    <a href={paperUrl} target="_blank" rel="noopener" class="paper-title">{paperTitle}</a>
+    <div class="authors">{paperAuthors}, {paperYear}</div>
+  </div>
+
+  <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 0;">
+    {description}
+  </p>
+
+  <div class="companion">
+    <div class="companion-label">Companion reading</div>
+    <a href={companionUrl} target="_blank" rel="noopener">{companionTitle}</a>
+    <span style="color: var(--text-tertiary); font-size: 0.85rem;"> — {companionSource}</span>
+    {companionDescription && (
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 6px; margin-bottom: 0;">
+        {companionDescription}
+      </p>
+    )}
+  </div>
+
+  {alternatives && alternatives.length > 0 && (
+    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed rgba(0,0,0,0.08);">
+      <div class="companion-label" style="margin-bottom: 12px;">Alternative picks — vote in the group!</div>
+      {alternatives.map((alt) => (
+        <div style="margin-bottom: 12px; padding-left: 12px; border-left: 2px solid var(--blossom-light);">
+          <strong style="font-size: 0.85rem;">{alt.label}:</strong>
+          <a href={alt.paperUrl} target="_blank" rel="noopener" style="font-size: 0.85rem;"> {alt.paperTitle}</a>
+          <div style="font-size: 0.8rem; color: var(--text-tertiary);">{alt.paperAuthors}</div>
+          <div style="font-size: 0.8rem; color: var(--text-tertiary);">
+            Companion: <a href={alt.companionUrl} target="_blank" rel="noopener">{alt.companionTitle}</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {note && (
+    <div style="margin-top: 12px; padding: 10px 14px; background: var(--blossom-pale); border-radius: var(--radius-sm); font-size: 0.82rem; color: var(--text-secondary);">
+      {note}
+    </div>
+  )}
+</article>

@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SessionCard from '../components/SessionCard.astro';
+import { getCollection } from 'astro:content';
+
+const sessions = await getCollection('sessions');
+const sorted = sessions.sort((a, b) => a.data.week - b.data.week);
+
+// Find the next upcoming session (first non-completed)
+const nextSession = sorted.find(s => !s.data.completed) || sorted[0];
+---
+
+<Layout title="Home" activePage="home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>AI Spring Amsterdam 🌸</h1>
+    <p class="subtitle">
+      A weekly reading group exploring the foundations of intelligence and the safety of AI systems.
+    </p>
+  </section>
+
+  <!-- Next Session -->
+  <section class="section">
+    <div class="section-title">Up Next</div>
+    <SessionCard
+      week={nextSession.data.week}
+      theme={nextSession.data.theme}
+      date={nextSession.data.date}
+      paperTitle={nextSession.data.paperTitle}
+      paperUrl={nextSession.data.paperUrl}
+      paperAuthors={nextSession.data.paperAuthors}
+      paperYear={nextSession.data.paperYear}
+      description={nextSession.body || ''}
+      companionTitle={nextSession.data.companionTitle}
+      companionUrl={nextSession.data.companionUrl}
+      companionSource={nextSession.data.companionSource}
+      companionDescription={nextSession.data.companionDescription}
+      note={nextSession.data.note}
+      alternatives={nextSession.data.alternatives}
+      highlight={true}
+    />
+  </section>
+
+  <!-- About snippet -->
+  <section class="section">
+    <div class="section-title">How it works</div>
+    <div class="grid-2">
+      <div class="glass-card-static">
+        <h3 style="margin-bottom: 12px;">Four themes, one cycle</h3>
+        <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 12px;">
+          We rotate through four themes every four weeks:
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <span class="badge badge-foundation">Foundation</span>
+          <span class="badge badge-sota">State of the Art</span>
+          <span class="badge badge-safety">Safety</span>
+          <span class="badge badge-free">Free Topic</span>
+        </div>
+      </div>
+      <div class="glass-card-static">
+        <h3 style="margin-bottom: 12px;">Each week</h3>
+        <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 0;">
+          Read one paper + one companion piece (blog post, video, or essay), then meet in person for ~60–90 min of discussion over coffee. A rotating discussion lead prepares a small presentation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendar -->
+  <section class="section">
+    <div class="section-title">Calendar</div>
+    <div class="glass-card-static calendar-wrap">
+      <!-- Replace YOUR_CALENDAR_ID with your actual Google Calendar public embed ID -->
+      <iframe
+        src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID&ctz=Europe%2FAmsterdam&mode=AGENDA&showTitle=0&showNav=1&showPrint=0&showTabs=0&showCalendars=0"
+        style="border: 0"
+        width="100%"
+        height="500"
+        frameborder="0"
+        scrolling="no"
+      ></iframe>
+      <p style="text-align: center; color: var(--text-tertiary); font-size: 0.8rem; padding: 12px 0 0;">
+        Replace the calendar embed URL in <code>src/pages/index.astro</code> with your Google Calendar ID.
+      </p>
+    </div>
+  </section>
+
+</Layout>

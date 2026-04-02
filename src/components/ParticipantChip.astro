@@ -1,0 +1,43 @@
+---
+/**
+ * Compact chip for session pages.
+ * Just name and surname, with optional "presenter" highlight.
+ */
+interface Props {
+  name: string;
+  surname: string;
+  isPresenter?: boolean;
+}
+
+const { name, surname, isPresenter = false } = Astro.props;
+---
+
+<span class:list={["chip", { "chip--presenter": isPresenter }]}>
+  {isPresenter && (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+    </svg>
+  )}
+  {name} {surname}
+</span>
+
+<style>
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--blossom-pale);
+    color: var(--blossom-deep);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .chip--presenter {
+    background: var(--blossom-light);
+    color: var(--blossom-deep);
+    font-weight: 600;
+  }
+</style>

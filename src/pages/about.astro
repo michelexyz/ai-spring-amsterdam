@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ParticipantCard from '../components/ParticipantCard.astro';
+import participants from '../data/participants.json';
+
+const participantEntries = Object.entries(participants);
+---
+
+<Layout title="About" activePage="about">
+
+  <div class="page-header">
+    <h1>About</h1>
+    <p class="subtitle">What we're doing, why, and who's involved.</p>
+  </div>
+
+  <section class="section">
+    <div class="glass-card-static" style="max-width: 720px;">
+      <h2 style="margin-bottom: 16px;">The idea</h2>
+      <p>
+        AI Spring Amsterdam is a reading group for people who want to think deeply about where AI comes from, where it's going, and how to make sure it goes well.
+      </p>
+      <p>
+        We believe that understanding both the <em>foundations</em> of intelligence and the <em>safety challenges</em> ahead requires sustained, careful reading — the kind that's hard to do alone. So we meet weekly over coffee to discuss one paper and one companion reading together.
+      </p>
+      <p>
+        The group is organized around four rotating themes that capture the breadth of what matters right now:
+      </p>
+      <div style="display: grid; gap: 12px; margin: 20px 0;">
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+          <span class="badge badge-foundation" style="white-space: nowrap; margin-top: 2px;">Foundation</span>
+          <span style="font-size: 0.92rem; color: var(--text-secondary);">Landmark papers that shaped the field — the ideas we build on.</span>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+          <span class="badge badge-sota" style="white-space: nowrap; margin-top: 2px;">State of the Art</span>
+          <span style="font-size: 0.92rem; color: var(--text-secondary);">Cutting-edge methods pushing the frontier of what's possible.</span>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+          <span class="badge badge-safety" style="white-space: nowrap; margin-top: 2px;">Safety</span>
+          <span style="font-size: 0.92rem; color: var(--text-secondary);">Alignment, robustness, and the hard problems of responsible development.</span>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 12px;">
+          <span class="badge badge-free" style="white-space: nowrap; margin-top: 2px;">Free Topic</span>
+          <span style="font-size: 0.92rem; color: var(--text-secondary);">Cross-cutting ideas, philosophy, and emerging directions.</span>
+        </div>
+      </div>
+      <p style="margin-bottom: 0;">
+        The companion readings — blog posts, videos, essays — are just as important as the papers. They provide context, counterarguments, and accessibility that make the discussions richer.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="glass-card-static" style="max-width: 720px;">
+      <h2 style="margin-bottom: 16px;">Format</h2>
+      <p>
+        We meet over coffee once a week, in person, somewhere in Amsterdam. Sessions last about 60–90 minutes. Each week a different member leads the discussion, preparing a 10-20 minutes presentation. Participants are advised to read the resources at least partially, and are expected to prepare a few questions for the discussion.
+      </p>
+      <p style="margin-bottom: 0;">
+        Suggestions for readings — especially for the Free Topic weeks — are always welcome in the WhatsApp group.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="glass-card-static" style="max-width: 720px;">
+      <h2 style="margin-bottom: 16px;">Participants</h2>
+      <p>
+        We're a group of AI Master's graduates and researchers based in Amsterdam. The reading level assumes a solid technical background — we don't shy away from math-heavy papers.
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 16px;">
+        {participantEntries.map(([id, p]) => (
+          <ParticipantCard
+            name={p.name}
+            surname={p.surname}
+            link={p.link}
+            affiliation={p.affiliation}
+            role={p.role}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
