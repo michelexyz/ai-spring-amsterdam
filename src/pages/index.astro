@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import SessionCard from '../components/SessionCard.astro';
 import { getCollection } from 'astro:content';
+import mailIcon from '../icons/mail.svg';
+
 
 const sessions = await getCollection('sessions');
 const sorted = sessions.sort((a, b) => a.data.week - b.data.week);
@@ -18,6 +20,11 @@ const nextSession = sorted.find(s => !s.data.completed) || sorted[0];
     <p class="subtitle">
       A weekly reading group exploring the foundations of intelligence and the safety of AI systems.
     </p>
+    <!--mail -->
+    <a href="mailto:aispringamsterdam@outlook.com" class="btn">
+      <img src={mailIcon.src} alt="" class="mail-icon" loading="lazy" aria-hidden="true" />
+      Write to aispringamsterdam@outlook.com in order to join.
+    </a>
   </section>
 
   <!-- Next Session -->
@@ -58,7 +65,7 @@ const nextSession = sorted.find(s => !s.data.completed) || sorted[0];
           <span class="badge badge-free">Free Topic</span>
         </div>
       </div>
-      <div c  lass="glass-card-static">
+      <div class="glass-card-static">
         <h3 style="margin-bottom: 12px;">Each week</h3>
         <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 0;">
           We read one paper + one companion piece (blog post, video, or essay), then meet in person for ~60–90 min of discussion over coffee. A rotating discussion lead prepares a small presentation.
@@ -87,3 +94,17 @@ const nextSession = sorted.find(s => !s.data.completed) || sorted[0];
   </section>
 
 </Layout>
+
+<style>
+  
+  a.btn {
+    background-color:  rgb(70, 146, 221);
+  }
+  a.btn {
+    box-shadow: 0 12px 28px rgba(70, 146, 221, 0.28);
+  }
+
+  a.btn:hover {
+    box-shadow: 0 16px 36px rgba(70, 146, 221, 0.34);
+  }
+</style>
