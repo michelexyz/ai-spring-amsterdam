@@ -201,6 +201,12 @@ nav .logo {
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: opacity 0.1s ease;
+}
+
+.page-home.home-hero-visible nav .logo {
+  opacity: 0;
+  pointer-events: none;
 }
 
 nav .logo span.blossom {
