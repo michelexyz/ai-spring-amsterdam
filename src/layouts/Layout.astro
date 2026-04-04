@@ -23,7 +23,7 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
   <title>{title} | AI Spring Amsterdam</title>
 </head>
-<body>
+<body class={`page-${activePage}${activePage === 'home' ? ' home-hero-visible' : ''}`}>
   <PixelBlossoms />
   <Navbar activePage={activePage} />
 
@@ -42,6 +42,20 @@ const base = import.meta.env.BASE_URL.endsWith('/')
     toggle?.addEventListener('click', () => {
       links?.classList.toggle('open');
     });
+
+    const heroTitle = document.querySelector('#home-hero-title');
+    const body = document.body;
+
+    if (heroTitle && body.classList.contains('page-home')) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          body.classList.toggle('home-hero-visible', entry.isIntersecting);
+        },
+        { threshold: 0.1 }
+      );
+
+      observer.observe(heroTitle);
+    }
   </script>
 </body>
 </html>
