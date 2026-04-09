@@ -6,65 +6,94 @@ import { getCollection } from 'astro:content';
 const sessions = await getCollection('sessions');
 const sorted = sessions.sort((a, b) => a.data.week - b.data.week);
 
+const cycle0 = sorted.filter(s => s.data.cycle === 0);
 const cycle1 = sorted.filter(s => s.data.cycle === 1);
 const cycle2 = sorted.filter(s => s.data.cycle === 2);
+
+const renderCycle = async (list: typeof sorted) =>
+  Promise.all(list.map(async (session) => ({ session, Content: (await session.render()).Content })));
+
+const cycle0Rendered = await renderCycle(cycle0);
+const cycle1Rendered = await renderCycle(cycle1);
+const cycle2Rendered = await renderCycle(cycle2);
 ---
 
 <Layout title="Roadmap" activePage="roadmap">
 
   <div class="page-header">
     <h1>Roadmap</h1>
-    <p class="subtitle">Eight weeks of readings, two full cycles through our four themes.</p>
+    <p class="subtitle">A prologue week plus eight weeks of readings, two full cycles through our four themes.</p>
   </div>
 
   <div class="roadmap">
+    {cycle0Rendered.length > 0 && (
+      <>
+        <div class="cycle-header">Prologue</div>
+        {cycle0Rendered.map(({ session, Content }) => (
+          <SessionCard
+            week={session.data.week}
+            theme={session.data.theme}
+            date={session.data.date}
+            paperTitle={session.data.paperTitle}
+            paperUrl={session.data.paperUrl}
+            paperAuthors={session.data.paperAuthors}
+            paperYear={session.data.paperYear}
+            companionTitle={session.data.companionTitle}
+            companionUrl={session.data.companionUrl}
+            companionSource={session.data.companionSource}
+            companionDescription={session.data.companionDescription}
+            note={session.data.note}
+            alternatives={session.data.alternatives}
+          >
+            <Content slot="description" />
+          </SessionCard>
+        ))}
+      </>
+    )}
+
     <div class="cycle-header">Cycle 1 · Weeks 1–4</div>
 
-    {cycle1.map(async (session) => {
-      const { Content } = await session.render();
-      return (
-        <SessionCard
-          week={session.data.week}
-          theme={session.data.theme}
-          date={session.data.date}
-          paperTitle={session.data.paperTitle}
-          paperUrl={session.data.paperUrl}
-          paperAuthors={session.data.paperAuthors}
-          paperYear={session.data.paperYear}
-          description={session.body || ''}
-          companionTitle={session.data.companionTitle}
-          companionUrl={session.data.companionUrl}
-          companionSource={session.data.companionSource}
-          companionDescription={session.data.companionDescription}
-          note={session.data.note}
-          alternatives={session.data.alternatives}
-        />
-      );
-    })}
+    {cycle1Rendered.map(({ session, Content }) => (
+      <SessionCard
+        week={session.data.week}
+        theme={session.data.theme}
+        date={session.data.date}
+        paperTitle={session.data.paperTitle}
+        paperUrl={session.data.paperUrl}
+        paperAuthors={session.data.paperAuthors}
+        paperYear={session.data.paperYear}
+        companionTitle={session.data.companionTitle}
+        companionUrl={session.data.companionUrl}
+        companionSource={session.data.companionSource}
+        companionDescription={session.data.companionDescription}
+        note={session.data.note}
+        alternatives={session.data.alternatives}
+      >
+        <Content slot="description" />
+      </SessionCard>
+    ))}
 
     <div class="cycle-header">Cycle 2 · Weeks 5–8</div>
 
-    {cycle2.map(async (session) => {
-      const { Content } = await session.render();
-      return (
-        <SessionCard
-          week={session.data.week}
-          theme={session.data.theme}
-          date={session.data.date}
-          paperTitle={session.data.paperTitle}
-          paperUrl={session.data.paperUrl}
-          paperAuthors={session.data.paperAuthors}
-          paperYear={session.data.paperYear}
-          description={session.body || ''}
-          companionTitle={session.data.companionTitle}
-          companionUrl={session.data.companionUrl}
-          companionSource={session.data.companionSource}
-          companionDescription={session.data.companionDescription}
-          note={session.data.note}
-          alternatives={session.data.alternatives}
-        />
-      );
-    })}
+    {cycle2Rendered.map(({ session, Content }) => (
+      <SessionCard
+        week={session.data.week}
+        theme={session.data.theme}
+        date={session.data.date}
+        paperTitle={session.data.paperTitle}
+        paperUrl={session.data.paperUrl}
+        paperAuthors={session.data.paperAuthors}
+        paperYear={session.data.paperYear}
+        companionTitle={session.data.companionTitle}
+        companionUrl={session.data.companionUrl}
+        companionSource={session.data.companionSource}
+        companionDescription={session.data.companionDescription}
+        note={session.data.note}
+        alternatives={session.data.alternatives}
+      >
+        <Content slot="description" />
+      </SessionCard>
+    ))}
   </div>
 
 </Layout>

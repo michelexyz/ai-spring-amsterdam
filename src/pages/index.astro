@@ -10,6 +10,7 @@ const sorted = sessions.sort((a, b) => a.data.week - b.data.week);
 
 // Find the next upcoming session (first non-completed)
 const nextSession = sorted.find(s => !s.data.completed) || sorted[0];
+const { Content: NextSessionContent } = await nextSession.render();
 ---
 
 <Layout title="Home" activePage="home">
@@ -38,7 +39,6 @@ const nextSession = sorted.find(s => !s.data.completed) || sorted[0];
       paperUrl={nextSession.data.paperUrl}
       paperAuthors={nextSession.data.paperAuthors}
       paperYear={nextSession.data.paperYear}
-      description={nextSession.body || ''}
       companionTitle={nextSession.data.companionTitle}
       companionUrl={nextSession.data.companionUrl}
       companionSource={nextSession.data.companionSource}
@@ -46,7 +46,9 @@ const nextSession = sorted.find(s => !s.data.completed) || sorted[0];
       note={nextSession.data.note}
       alternatives={nextSession.data.alternatives}
       highlight={true}
-    />
+    >
+      <NextSessionContent slot="description" />
+    </SessionCard>
   </section>
 
   <!-- About snippet -->
