@@ -12,5 +12,13 @@
     "link": "https://www.linkedin.com/in/arturo-abril/",
     "affiliation": "Vrije Universiteit Amsterdam",
     "role": "Master's Graduate"
-  }
+  },
+  "antonis": {
+    "name": "Antonis",
+    "surname": "Vozikis",
+    "link": "https://vozikis.github.io/",
+    "affiliation": "Universiteit Van Amsterdam",
+    "role": "Phd Candidate"
+  },
+  
 }
