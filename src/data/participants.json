@@ -11,7 +11,7 @@
     "surname": "Abril",
     "link": "https://www.linkedin.com/in/arturo-abril/",
     "affiliation": "Vrije Universiteit Amsterdam",
-    "role": "Master's Graduate"
+    "role": "AI Master's Graduate"
   },
   "antonis": {
     "name": "Antonis",
@@ -20,5 +20,11 @@
     "affiliation": "Universiteit Van Amsterdam",
     "role": "Phd Candidate"
   },
-  
+  "mark":{
+    "name": "Mark M.",
+    "surname": "Mitrani",
+    "link": "https://www.linkedin.com/in/mark-m-mitrani",
+    "affiliation": "Vrije Universiteit Amsterdam",
+    "role": "AI Master's Graduate"
+  }
 }
