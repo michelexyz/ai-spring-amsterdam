@@ -31,6 +31,7 @@ alternatives:
     paperAuthors: "Wei et al. (Google Brain), 2022"
     companionTitle: "Large Language Models are Zero-Shot Reasoners"
     companionUrl: "https://arxiv.org/abs/2205.11916"
+completed: false
 ---
 
 Proposes a theoretical framework for why in-context learning works: transformers implicitly perform Bayesian inference over latent "concepts" during pre-training, then use the prompt to identify and condition on the relevant concept at inference time. A foundational lens for understanding the most surprising emergent capability of LLMs.

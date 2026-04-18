@@ -11,6 +11,7 @@ companionTitle: "The Scaling Hypothesis"
 companionUrl: "https://gwern.net/scaling-hypothesis"
 companionSource: "Gwern"
 companionDescription: "A deep, opinionated synthesis of what scaling laws mean for the trajectory of AI."
+completed: false
 ---
 
 Establishes power-law relationships between model performance and compute, dataset size, and parameter count. This paper fundamentally changed how labs think about training runs and resource allocation.
