@@ -13,18 +13,12 @@ companionSource: "Olsson et al. (Anthropic), 2022"
 companionDescription: "A mechanistic interpretability investigation into how in-context learning actually happens inside transformers, identifying 'induction heads' as a key circuit."
 note: "Assumed pre-read: Attention Is All You Need (Vaswani et al., 2017). We assume familiarity with the transformer architecture as a baseline."
 alternatives:
-  - label: "Option A"
+  - label: "Alternative"
     paperTitle: "Transformers Learn In-Context by Gradient Descent"
     paperUrl: "https://arxiv.org/abs/2212.07677"
     paperAuthors: "Von Oswald, Niklasson, Randazzo et al., 2023"
     companionTitle: "In-context Learning and Induction Heads"
     companionUrl: "https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html"
-  - label: "Option B"
-    paperTitle: "Chain-of-Thought Prompting Elicits Reasoning in LLMs"
-    paperUrl: "https://arxiv.org/abs/2201.11903"
-    paperAuthors: "Wei et al. (Google Brain), 2022"
-    companionTitle: "Large Language Models are Zero-Shot Reasoners"
-    companionUrl: "https://arxiv.org/abs/2205.11916"
 completed: false
 ---
 
