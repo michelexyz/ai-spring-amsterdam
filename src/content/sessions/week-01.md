@@ -19,7 +19,7 @@ alternatives:
     paperAuthors: "Von Oswald, Niklasson, Randazzo et al., 2023"
     companionTitle: "In-context Learning and Induction Heads"
     companionUrl: "https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html"
-completed: false
+completed: true
 ---
 
 Proposes a theoretical framework for why in-context learning works: transformers implicitly perform Bayesian inference over latent "concepts" during pre-training, then use the prompt to identify and condition on the relevant concept at inference time. A foundational lens for understanding the most surprising emergent capability of LLMs.
