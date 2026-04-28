@@ -27,13 +27,13 @@
     "affiliation": "Prosus",
     "role": "AI Resident"
   },
-  // "mark":{
-  //   "name": "Mark M.",
-  //   "surname": "Mitrani",
-  //   "link": "https://www.linkedin.com/in/mark-m-mitrani",
-  //   "affiliation": "Vrije Universiteit Amsterdam",
-  //   "role": "AI Master's Graduate"
-  // },																			
+  "mark":{
+    "name": "Mark M.",
+    "surname": "Mitrani",
+    "link": "https://www.linkedin.com/in/mark-m-mitrani",
+    "affiliation": "Vrije Universiteit Amsterdam",
+    "role": "AI Master's Graduate"
+  },																			
   "duje": {
     "name": "Duje",
     "surname": "Vukovac",
