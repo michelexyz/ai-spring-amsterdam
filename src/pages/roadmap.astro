@@ -1,21 +1,51 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SessionCard from '../components/SessionCard.astro';
+import HereFab from '../components/HereFab.astro';
 import { getCollection } from 'astro:content';
+import participants from '../data/participants.json';
 
 const sessions = await getCollection('sessions');
 const sorted = sessions.sort((a, b) => a.data.week - b.data.week);
 
-const cycle0 = sorted.filter(s => s.data.cycle === 0);
-const cycle1 = sorted.filter(s => s.data.cycle === 1);
-const cycle2 = sorted.filter(s => s.data.cycle === 2);
+const resolve = (id: string) => {
+  const p = (participants as Record<string, any>)[id];
+  return p ?? { name: id, surname: '', link: undefined };
+};
 
-const renderCycle = async (list: typeof sorted) =>
-  Promise.all(list.map(async (session) => ({ session, Content: (await session.render()).Content })));
+type Item = {
+  session: typeof sorted[number];
+  Content: any;
+  presenterName?: string;
+  presenterUrl?: string;
+  attendees: { name: string; surname: string; link?: string }[];
+};
 
-const cycle0Rendered = await renderCycle(cycle0);
-const cycle1Rendered = await renderCycle(cycle1);
-const cycle2Rendered = await renderCycle(cycle2);
+const items: Item[] = await Promise.all(
+  sorted.map(async (session) => {
+    const presenter = session.data.presenter ? resolve(session.data.presenter) : null;
+    const attendees = (session.data.participants ?? []).map(resolve);
+    return {
+      session,
+      Content: (await session.render()).Content,
+      presenterName: presenter ? `${presenter.name} ${presenter.surname}`.trim() : undefined,
+      presenterUrl: presenter?.link,
+      attendees,
+    };
+  })
+);
+
+// Index of the first non-completed session — the divider sits right before it.
+// If all are completed, divider goes after the last item. If none completed, before the first.
+const nextIndex = items.findIndex((i) => !i.session.data.completed);
+const dividerBeforeIndex = nextIndex === -1 ? items.length : nextIndex;
+
+const cycleLabel = (cycle: number) => {
+  if (cycle === 0) return 'Prologue';
+  if (cycle === 1) return 'Cycle 1 · Weeks 1–4';
+  if (cycle === 2) return 'Cycle 2 · Weeks 5–8';
+  return `Cycle ${cycle}`;
+};
 ---
 
 <Layout title="Roadmap" activePage="roadmap">
@@ -26,74 +56,51 @@ const cycle2Rendered = await renderCycle(cycle2);
   </div>
 
   <div class="roadmap">
-    {cycle0Rendered.length > 0 && (
-      <>
-        <div class="cycle-header">Prologue</div>
-        {cycle0Rendered.map(({ session, Content }) => (
+    {items.map((item, i) => {
+      const prev = items[i - 1];
+      const showCycleHeader = !prev || prev.session.data.cycle !== item.session.data.cycle;
+      return (
+        <>
+          {showCycleHeader && <div class="cycle-header">{cycleLabel(item.session.data.cycle)}</div>}
+          {i === dividerBeforeIndex && (
+            <div id="we-are-here" class="here-divider" aria-label="We are here">
+              &gt; — we are here — &lt;
+            </div>
+          )}
           <SessionCard
-            week={session.data.week}
-            theme={session.data.theme}
-            date={session.data.date}
-            paperTitle={session.data.paperTitle}
-            paperUrl={session.data.paperUrl}
-            paperAuthors={session.data.paperAuthors}
-            paperYear={session.data.paperYear}
-            companionTitle={session.data.companionTitle}
-            companionUrl={session.data.companionUrl}
-            companionSource={session.data.companionSource}
-            companionDescription={session.data.companionDescription}
-            note={session.data.note}
-            alternatives={session.data.alternatives}
+            week={item.session.data.week}
+            theme={item.session.data.theme}
+            date={item.session.data.date}
+            paperTitle={item.session.data.paperTitle}
+            paperUrl={item.session.data.paperUrl}
+            paperAuthors={item.session.data.paperAuthors}
+            paperYear={item.session.data.paperYear}
+            companionTitle={item.session.data.companionTitle}
+            companionUrl={item.session.data.companionUrl}
+            companionSource={item.session.data.companionSource}
+            companionDescription={item.session.data.companionDescription}
+            note={item.session.data.note}
+            alternatives={item.session.data.alternatives}
+            location={item.session.data.location}
+            presenterName={item.presenterName}
+            presenterUrl={item.presenterUrl}
+            attendees={item.attendees}
+            youtubeId={item.session.data.youtubeId}
+            discussionNotes={item.session.data.discussionNotes}
           >
-            <Content slot="description" />
+            <item.Content slot="description" />
           </SessionCard>
-        ))}
-      </>
+        </>
+      );
+    })}
+
+    {dividerBeforeIndex === items.length && (
+      <div id="we-are-here" class="here-divider" aria-label="We are here">
+        &gt; — we are here — &lt;
+      </div>
     )}
-
-    <div class="cycle-header">Cycle 1 · Weeks 1–4</div>
-
-    {cycle1Rendered.map(({ session, Content }) => (
-      <SessionCard
-        week={session.data.week}
-        theme={session.data.theme}
-        date={session.data.date}
-        paperTitle={session.data.paperTitle}
-        paperUrl={session.data.paperUrl}
-        paperAuthors={session.data.paperAuthors}
-        paperYear={session.data.paperYear}
-        companionTitle={session.data.companionTitle}
-        companionUrl={session.data.companionUrl}
-        companionSource={session.data.companionSource}
-        companionDescription={session.data.companionDescription}
-        note={session.data.note}
-        alternatives={session.data.alternatives}
-      >
-        <Content slot="description" />
-      </SessionCard>
-    ))}
-
-    <div class="cycle-header">Cycle 2 · Weeks 5–8</div>
-
-    {cycle2Rendered.map(({ session, Content }) => (
-      <SessionCard
-        week={session.data.week}
-        theme={session.data.theme}
-        date={session.data.date}
-        paperTitle={session.data.paperTitle}
-        paperUrl={session.data.paperUrl}
-        paperAuthors={session.data.paperAuthors}
-        paperYear={session.data.paperYear}
-        companionTitle={session.data.companionTitle}
-        companionUrl={session.data.companionUrl}
-        companionSource={session.data.companionSource}
-        companionDescription={session.data.companionDescription}
-        note={session.data.note}
-        alternatives={session.data.alternatives}
-      >
-        <Content slot="description" />
-      </SessionCard>
-    ))}
   </div>
+
+  <HereFab />
 
 </Layout>

@@ -22,6 +22,9 @@ const sessions = defineCollection({
 
     // Optional
     note: z.string().optional(),
+    location: z.string().optional(),
+    images: z.array(z.string()).optional(),
+    imagesCaptions: z.array(z.string()).optional(),
 
     // Alternative picks (for votable weeks)
     alternatives: z.array(z.object({

@@ -12,6 +12,12 @@ companionUrl: "https://www.youtube.com/watch?v=fFL7la73RO4"
 companionSource: "Dwarkesh podcast, 2024"
 companionDescription: "An animated discussion between François Chollet and Dwarkesh Patel. The first believes that current AI systems are not truly intelligent and that we need to rethink our approach to building them. Dwarkesh, instead is more optimistic about the potential of transformers and believes they only need to be scaled further."
 completed: true
+presenter: "michele"
+location: "VU Amsterdam"
+images:
+  - "AI_Spring_Chollet.jpg"
+imagesCaptions:
+  - "That's us on the first session!"
 ---
 We are going to get started with something "easier" but important, which will serve as the foundation and north star for our future discussions.
 

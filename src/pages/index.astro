@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import SessionCard from '../components/SessionCard.astro';
 import { getCollection } from 'astro:content';
 import mailIcon from '../icons/mail.svg';
+import participants from '../data/participants.json';
 
 
 const sessions = await getCollection('sessions');
@@ -11,6 +12,12 @@ const sorted = sessions.sort((a, b) => a.data.week - b.data.week);
 // Find the next upcoming session (first non-completed)
 const nextSession = sorted.find(s => !s.data.completed) || sorted[0];
 const { Content: NextSessionContent } = await nextSession.render();
+
+const presenter = nextSession.data.presenter
+  ? (participants as Record<string, any>)[nextSession.data.presenter]
+  : null;
+const presenterName = presenter ? `${presenter.name} ${presenter.surname}`.trim() : undefined;
+const presenterUrl = presenter?.link;
 ---
 
 <Layout title="Home" activePage="home">
@@ -45,7 +52,11 @@ const { Content: NextSessionContent } = await nextSession.render();
       companionDescription={nextSession.data.companionDescription}
       note={nextSession.data.note}
       alternatives={nextSession.data.alternatives}
+      location={nextSession.data.location}
+      presenterName={presenterName}
+      presenterUrl={presenterUrl}
       highlight={true}
+      defaultExpanded={true}
     >
       <NextSessionContent slot="description" />
     </SessionCard>

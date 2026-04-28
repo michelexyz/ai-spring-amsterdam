@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SessionGallery from '../components/SessionGallery.astro';
+import { getCollection } from 'astro:content';
+import participants from '../data/participants.json';
+
+const all = await getCollection('sessions');
+const withImages = all
+  .filter((s) => s.data.images && s.data.images.length > 0)
+  .sort((a, b) => a.data.week - b.data.week);
+
+const resolve = (id: string) => {
+  const p = (participants as Record<string, any>)[id];
+  return p ?? { name: id, surname: '', link: undefined };
+};
+
+const rendered = await Promise.all(
+  withImages.map(async (session) => {
+    const presenter = session.data.presenter ? resolve(session.data.presenter) : null;
+    const attendees = (session.data.participants ?? []).map(resolve);
+    return {
+      session,
+      Content: (await session.render()).Content,
+      presenterName: presenter ? `${presenter.name} ${presenter.surname}`.trim() : undefined,
+      presenterUrl: presenter?.link,
+      attendees,
+    };
+  })
+);
+---
+
+<Layout title="Gallery" activePage="gallery">
+
+  <div class="page-header">
+    <h1>Gallery</h1>
+    <p class="subtitle">Photos from past sessions.</p>
+  </div>
+
+  {rendered.length === 0 ? (
+    <div class="glass-card-static" style="text-align: center; padding: 64px 32px;">
+      <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0;">
+        No photos yet — check back after the first session.
+      </p>
+    </div>
+  ) : (
+    <div class="gallery-list">
+      {rendered.map((item, i) => (
+        <>
+          {i > 0 && (
+            <div class="cycle-header gallery-divider">
+              Week {item.session.data.week}{item.session.data.date && <> · {item.session.data.date}</>}
+            </div>
+          )}
+          <SessionGallery
+            session={item.session}
+            Content={item.Content}
+            presenterName={item.presenterName}
+            presenterUrl={item.presenterUrl}
+            attendees={item.attendees}
+          />
+        </>
+      ))}
+    </div>
+  )}
+
+</Layout>
+
+<style>
+  .gallery-list {
+    display: grid;
+    gap: 32px;
+  }
+</style>

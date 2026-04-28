@@ -1,4 +1,12 @@
 ---
+import ParticipantChip from './ParticipantChip.astro';
+
+interface Attendee {
+  name: string;
+  surname: string;
+  link?: string;
+}
+
 interface Props {
   week: number;
   theme: 'foundation' | 'sota' | 'safety' | 'free';
@@ -22,6 +30,13 @@ interface Props {
     companionTitle: string;
     companionUrl: string;
   }>;
+  location?: string;
+  presenterName?: string;
+  presenterUrl?: string;
+  attendees?: Attendee[];
+  youtubeId?: string;
+  discussionNotes?: string;
+  defaultExpanded?: boolean;
 }
 
 const themeLabels: Record<string, string> = {
@@ -47,88 +62,293 @@ const {
   note,
   highlight = false,
   alternatives,
+  location,
+  presenterName,
+  presenterUrl,
+  attendees,
+  youtubeId,
+  discussionNotes,
+  defaultExpanded = false,
 } = Astro.props;
+
+const presenterIsAttendee = (a: Attendee) =>
+  presenterName && `${a.name} ${a.surname}`.trim() === presenterName;
+const otherAttendees = (attendees ?? []).filter((a) => !presenterIsAttendee(a));
 ---
 
-<article class={`glass-card session-card ${highlight ? 'next-session' : ''}`}>
-  {highlight && <div class="label">Next Session</div>}
+{defaultExpanded ? (
+  <article class={`glass-card session-card ${highlight ? 'next-session' : ''}`}>
+    {highlight && <div class="label">Next Session</div>}
 
-  <div class="meta">
-    <span class={`badge badge-${theme}`}>{themeLabels[theme]}</span>
-    <span>Week {week}</span>
-    {date && <span>&middot; {date}</span>}
-  </div>
+    <div class="meta">
+      <span class={`badge badge-${theme}`}>{themeLabels[theme]}</span>
+      <span>Week {week}</span>
+      {date && <span>&middot; {date}</span>}
+    </div>
 
-  <div>
-    <a href={paperUrl} target="_blank" rel="noopener" class="paper-title">{paperTitle}</a>
-    <div class="authors">{paperAuthors}, {paperYear}</div>
-  </div>
+    <div>
+      <a href={paperUrl} target="_blank" rel="noopener" class="paper-title">{paperTitle}</a>
+      <div class="authors">{paperAuthors}, {paperYear}</div>
+    </div>
 
-  <div class="session-description">
-    {Astro.slots.has('description') ? <slot name="description" /> : <p style="margin-bottom: 0;">{description}</p>}
-  </div>
-
-  <div class="companion">
-    <div class="companion-label">Companion reading</div>
-    <a href={companionUrl} target="_blank" rel="noopener">{companionTitle}</a>
-    <span style="color: var(--text-tertiary); font-size: 0.85rem;"> — {companionSource}</span>
-    {companionDescription && (
-      <p style="font-size: 0.92rem; color: var(--text-primary); margin-top: 6px; margin-bottom: 0;">
-        {companionDescription}
-      </p>
+    {(presenterName || location) && (
+      <div class="presenter-line">
+        {presenterName && (
+          <span>
+            Presented by:{' '}
+            {presenterUrl ? (
+              <a href={presenterUrl} target="_blank" rel="noopener">{presenterName}</a>
+            ) : (
+              <span>{presenterName}</span>
+            )}
+          </span>
+        )}
+        {location && <span class="location">📍 {location}</span>}
+      </div>
     )}
-  </div>
 
-  {alternatives && alternatives.length > 0 && (
-    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px dashed rgba(0,0,0,0.08);">
-      <div class="companion-label" style="margin-bottom: 12px;">Alternative picks — vote in the group!</div>
-      {alternatives.map((alt) => (
-        <div style="margin-bottom: 12px; padding-left: 12px; border-left: 2px solid var(--blossom-light);">
-          <strong style="font-size: 0.85rem;">{alt.label}:</strong>
-          <a href={alt.paperUrl} target="_blank" rel="noopener" style="font-size: 0.85rem;"> {alt.paperTitle}</a>
-          <div style="font-size: 0.8rem; color: var(--text-tertiary);">{alt.paperAuthors}</div>
-          <div style="font-size: 0.8rem; color: var(--text-tertiary);">
-            Companion: <a href={alt.companionUrl} target="_blank" rel="noopener">{alt.companionTitle}</a>
+    <div class="session-description">
+      {Astro.slots.has('description') ? <slot name="description" /> : <p style="margin-bottom: 0;">{description}</p>}
+    </div>
+
+    <div class="companion">
+      <div class="companion-label">Companion reading</div>
+      <a href={companionUrl} target="_blank" rel="noopener">{companionTitle}</a>
+      <span style="color: var(--text-tertiary); font-size: 0.85rem;"> — {companionSource}</span>
+      {companionDescription && (
+        <p style="font-size: 0.92rem; color: var(--text-primary); margin-top: 6px; margin-bottom: 0;">
+          {companionDescription}
+        </p>
+      )}
+    </div>
+
+    {alternatives && alternatives.length > 0 && (
+      <div class="alternatives-block">
+        <div class="companion-label" style="margin-bottom: 12px;">Alternative picks — vote in the group!</div>
+        {alternatives.map((alt) => (
+          <div class="alt-item">
+            <strong style="font-size: 0.85rem;">{alt.label}:</strong>
+            <a href={alt.paperUrl} target="_blank" rel="noopener" style="font-size: 0.85rem;"> {alt.paperTitle}</a>
+            <div style="font-size: 0.8rem; color: var(--text-tertiary);">{alt.paperAuthors}</div>
+            <div style="font-size: 0.8rem; color: var(--text-tertiary);">
+              Companion: <a href={alt.companionUrl} target="_blank" rel="noopener">{alt.companionTitle}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {youtubeId && (
+      <div class="yt-embed">
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}`}
+          title={`Week ${week} recording`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    )}
+
+    {(presenterName || otherAttendees.length > 0) && attendees && attendees.length > 0 && (
+      <div>
+        <div class="companion-label">Participants</div>
+        <div class="participants">
+          {presenterName && (() => {
+            const [first, ...rest] = presenterName.split(' ');
+            return (
+              <ParticipantChip name={first} surname={rest.join(' ')} isPresenter={true} />
+            );
+          })()}
+          {otherAttendees.map((a) => (
+            <ParticipantChip name={a.name} surname={a.surname} />
+          ))}
+        </div>
+      </div>
+    )}
+
+    {discussionNotes && (
+      <div>
+        <div class="companion-label">Discussion notes</div>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0;">
+          {discussionNotes}
+        </p>
+      </div>
+    )}
+
+    {note && (
+      <div class="note-box">{note}</div>
+    )}
+  </article>
+) : (
+  <details class={`glass-card session-card session-card--collapsible ${highlight ? 'next-session' : ''}`}>
+    <summary>
+      {highlight && <div class="label">Next Session</div>}
+
+      <div class="meta">
+        <span class={`badge badge-${theme}`}>{themeLabels[theme]}</span>
+        <span>Week {week}</span>
+        {date && <span>&middot; {date}</span>}
+      </div>
+
+      <div>
+        <a href={paperUrl} target="_blank" rel="noopener" class="paper-title">{paperTitle}</a>
+        <div class="authors">{paperAuthors}, {paperYear}</div>
+      </div>
+
+      {(presenterName || location) && (
+        <div class="presenter-line">
+          {presenterName && (
+            <span>
+              Presented by:{' '}
+              {presenterUrl ? (
+                <a href={presenterUrl} target="_blank" rel="noopener">{presenterName}</a>
+              ) : (
+                <span>{presenterName}</span>
+              )}
+            </span>
+          )}
+          {location && <span class="location">📍 {location}</span>}
+        </div>
+      )}
+
+      <div class="read-more">
+        <span class="read-more-text"></span>
+        <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </summary>
+
+    <div class="session-card__expanded">
+      <div class="session-description">
+        {Astro.slots.has('description') ? <slot name="description" /> : <p style="margin-bottom: 0;">{description}</p>}
+      </div>
+
+      <div class="companion">
+        <div class="companion-label">Companion reading</div>
+        <a href={companionUrl} target="_blank" rel="noopener">{companionTitle}</a>
+        <span style="color: var(--text-tertiary); font-size: 0.85rem;"> — {companionSource}</span>
+        {companionDescription && (
+          <p style="font-size: 0.92rem; color: var(--text-primary); margin-top: 6px; margin-bottom: 0;">
+            {companionDescription}
+          </p>
+        )}
+      </div>
+
+      {alternatives && alternatives.length > 0 && (
+        <div class="alternatives-block">
+          <div class="companion-label" style="margin-bottom: 12px;">Alternative picks — vote in the group!</div>
+          {alternatives.map((alt) => (
+            <div class="alt-item">
+              <strong style="font-size: 0.85rem;">{alt.label}:</strong>
+              <a href={alt.paperUrl} target="_blank" rel="noopener" style="font-size: 0.85rem;"> {alt.paperTitle}</a>
+              <div style="font-size: 0.8rem; color: var(--text-tertiary);">{alt.paperAuthors}</div>
+              <div style="font-size: 0.8rem; color: var(--text-tertiary);">
+                Companion: <a href={alt.companionUrl} target="_blank" rel="noopener">{alt.companionTitle}</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {youtubeId && (
+        <div class="yt-embed">
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeId}`}
+            title={`Week ${week} recording`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      )}
+
+      {attendees && attendees.length > 0 && (
+        <div>
+          <div class="companion-label">Participants</div>
+          <div class="participants">
+            {presenterName && (() => {
+              const [first, ...rest] = presenterName.split(' ');
+              return (
+                <ParticipantChip name={first} surname={rest.join(' ')} isPresenter={true} />
+              );
+            })()}
+            {otherAttendees.map((a) => (
+              <ParticipantChip name={a.name} surname={a.surname} />
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  )}
+      )}
 
-  <style>
-    .session-description,
-    .session-description :global(p),
-    .session-description :global(li) {
-      font-size: 0.92rem;
-      color: var(--text-primary);
-      line-height: 1.55;
-    }
-    .session-description :global(p) {
-      margin: 0 0 10px;
-    }
-    .session-description :global(p:last-child) {
-      margin-bottom: 0;
-    }
-    .session-description :global(h1),
-    .session-description :global(h2),
-    .session-description :global(h3),
-    .session-description :global(h4) {
-      color: var(--text-primary);
-      margin: 14px 0 6px;
-      line-height: 1.3;
-    }
-    .session-description :global(h1) { font-size: 1.25rem; }
-    .session-description :global(h2) { font-size: 1.12rem; }
-    .session-description :global(h3) { font-size: 1.02rem; }
-    .session-description :global(h4) { font-size: 0.95rem; }
-    .session-description :global(a) { color: var(--blossom, #d66); }
-    .session-description :global(ul),
-    .session-description :global(ol) { margin: 6px 0 10px 1.2em; }
-  </style>
+      {discussionNotes && (
+        <div>
+          <div class="companion-label">Discussion notes</div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0;">
+            {discussionNotes}
+          </p>
+        </div>
+      )}
 
-  {note && (
-    <div style="margin-top: 12px; padding: 10px 14px; background: var(--blossom-pale); border-radius: var(--radius-sm); font-size: 0.82rem; color: var(--text-secondary);">
-      {note}
+      {note && (
+        <div class="note-box">{note}</div>
+      )}
     </div>
-  )}
-</article>
+  </details>
+)}
+
+<style>
+  .session-description,
+  .session-description :global(p),
+  .session-description :global(li) {
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    line-height: 1.55;
+  }
+  .session-description :global(p) {
+    margin: 0 0 10px;
+  }
+  .session-description :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .session-description :global(h1),
+  .session-description :global(h2),
+  .session-description :global(h3),
+  .session-description :global(h4) {
+    color: var(--text-primary);
+    margin: 14px 0 6px;
+    line-height: 1.3;
+  }
+  .session-description :global(h1) { font-size: 1.25rem; }
+  .session-description :global(h2) { font-size: 1.12rem; }
+  .session-description :global(h3) { font-size: 1.02rem; }
+  .session-description :global(h4) { font-size: 0.95rem; }
+  .session-description :global(a) { color: var(--blossom, #d66); }
+  .session-description :global(ul),
+  .session-description :global(ol) { margin: 6px 0 10px 1.2em; }
+
+  .alternatives-block {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed rgba(0, 0, 0, 0.08);
+  }
+  .alt-item {
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 2px solid var(--blossom-light);
+  }
+
+  .note-box {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: var(--blossom-pale);
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+</style>
+
+<script>
+  // Prevent clicks on links inside <summary> from toggling the <details>.
+  document.querySelectorAll('.session-card--collapsible > summary a').forEach((a) => {
+    a.addEventListener('click', (e) => e.stopPropagation());
+  });
+</script>

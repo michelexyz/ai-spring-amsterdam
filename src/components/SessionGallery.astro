@@ -1,0 +1,184 @@
+---
+import { Image } from 'astro:assets';
+import SessionCard from './SessionCard.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Attendee {
+  name: string;
+  surname: string;
+  link?: string;
+}
+
+interface Props {
+  session: CollectionEntry<'sessions'>;
+  Content: any;
+  presenterName?: string;
+  presenterUrl?: string;
+  attendees?: Attendee[];
+}
+
+const { session, Content, presenterName, presenterUrl, attendees } = Astro.props;
+
+const imageModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../content/images/*.{jpg,jpeg,png,webp,avif}',
+  { eager: true }
+);
+
+const images = (session.data.images ?? []).map((filename: string, i: number) => {
+  const mod = imageModules[`../content/images/${filename}`];
+  if (!mod) {
+    throw new Error(
+      `Gallery image not found: "${filename}" referenced in week ${session.data.week}. ` +
+      `Place it under src/content/images/.`
+    );
+  }
+  return {
+    src: mod.default,
+    caption: session.data.imagesCaptions?.[i] ?? '',
+  };
+});
+---
+
+<section class="gallery-session">
+  <header class="gallery-session__header">
+    <h2 class="gallery-session__title">{session.data.paperTitle}</h2>
+    <div class="gallery-session__meta">
+      Week {session.data.week}{session.data.date && <> · {session.data.date}</>}
+    </div>
+  </header>
+
+  <div class="gallery-grid">
+    {images.map(({ src, caption }) => (
+      <figure class="gallery-figure">
+        <Image
+          src={src}
+          alt={caption || `Session photo from week ${session.data.week}`}
+          widths={[480, 800, 1200]}
+          sizes="(max-width: 640px) 100vw, 50vw"
+        />
+        {caption && <figcaption>{caption}</figcaption>}
+      </figure>
+    ))}
+  </div>
+
+  <details class="gallery-expand">
+    <summary>
+      <span class="gallery-expand__label"></span>
+      <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </summary>
+    <div class="gallery-expand__body">
+      <SessionCard
+        week={session.data.week}
+        theme={session.data.theme}
+        date={session.data.date}
+        paperTitle={session.data.paperTitle}
+        paperUrl={session.data.paperUrl}
+        paperAuthors={session.data.paperAuthors}
+        paperYear={session.data.paperYear}
+        companionTitle={session.data.companionTitle}
+        companionUrl={session.data.companionUrl}
+        companionSource={session.data.companionSource}
+        companionDescription={session.data.companionDescription}
+        note={session.data.note}
+        alternatives={session.data.alternatives}
+        location={session.data.location}
+        presenterName={presenterName}
+        presenterUrl={presenterUrl}
+        attendees={attendees}
+        youtubeId={session.data.youtubeId}
+        discussionNotes={session.data.discussionNotes}
+        defaultExpanded={true}
+      >
+        <Content slot="description" />
+      </SessionCard>
+    </div>
+  </details>
+</section>
+
+<style>
+  .gallery-session {
+    display: grid;
+    gap: 16px;
+  }
+
+  .gallery-session__title {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+  }
+
+  .gallery-session__meta {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .gallery-figure {
+    margin: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--glass-bg);
+    box-shadow: var(--glass-shadow);
+  }
+
+  .gallery-figure :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .gallery-figure figcaption {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .gallery-expand {
+    margin-top: 8px;
+  }
+
+  .gallery-expand > summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--blossom-deep);
+    padding: 8px 0;
+    user-select: none;
+  }
+
+  .gallery-expand > summary::-webkit-details-marker { display: none; }
+
+  .gallery-expand .gallery-expand__label::before {
+    content: 'Show full session';
+  }
+  .gallery-expand[open] .gallery-expand__label::before {
+    content: 'Hide session';
+  }
+
+  .gallery-expand .chevron {
+    transition: transform 0.2s ease;
+  }
+  .gallery-expand[open] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .gallery-expand__body {
+    margin-top: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+  }
+</style>
