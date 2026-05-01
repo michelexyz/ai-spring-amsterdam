@@ -14,6 +14,10 @@ companionDescription: "An accessible video breakdown of DeepSeek's research and 
 completed: true
 location: "VU Amsterdam"
 presenter: "michele"
+images:
+  - "AI_Spring_week_02.jpg"
+imagesCaptions:
+  - "Some new faces and some others you might recognize from the first session!"
 ---
 
 Demonstrates how reinforcement learning (without supervised fine-tuning on chain-of-thought data) can elicit strong reasoning capabilities in LLMs. A key paper for understanding the current push toward reasoning-capable models.
