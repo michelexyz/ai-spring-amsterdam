@@ -161,10 +161,10 @@ const images = (session.data.images ?? []).map((filename: string, i: number) => 
   .gallery-expand > summary::-webkit-details-marker { display: none; }
 
   .gallery-expand .gallery-expand__label::before {
-    content: 'Show full session';
+    content: "Show session details";
   }
   .gallery-expand[open] .gallery-expand__label::before {
-    content: 'Hide session';
+    content: 'Hide session details';
   }
 
   .gallery-expand .chevron {
