@@ -11,7 +11,7 @@ companionTitle: "The Adolescence of Technology"
 companionUrl: "https://www.darioamodei.com/essay/the-adolescence-of-technology"
 companionSource: "Dario Amodei"
 companionDescription: "A bit unrelated with the paper this time, but coherent with the AI safety theme. A blog post by Anthropic's CEO discussing the risks of powerful AI."
-completed: false
+completed: true
 location: "VU Amsterdam"
 ---
 

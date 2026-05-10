@@ -1,17 +1,17 @@
 ---
 week: 4
 cycle: 1
-theme: "free"
+theme: "foundation"
 date: "TBD"
-paperTitle: "Scaling Laws for Neural Language Models"
-paperUrl: "https://arxiv.org/abs/2001.08361"
-paperAuthors: "Kaplan, McCandlish, Henighan, Brown et al."
-paperYear: 2020
-companionTitle: "The Scaling Hypothesis"
-companionUrl: "https://gwern.net/scaling-hypothesis"
-companionSource: "Gwern"
-companionDescription: "A deep, opinionated synthesis of what scaling laws mean for the trajectory of AI."
+paperTitle: "Reward is Enough"
+paperUrl: "https://www.sciencedirect.com/science/article/pii/S0004370221000862"
+paperAuthors: "Silver, Singh, Precup, Sutton"
+paperYear: 2021
+companionTitle: "Reward is Not Enough"
+companionUrl: "https://www.alignmentforum.org/posts/pGvM95EfNXwBzjNCJ/reward-is-not-enough"
+companionSource: "Alignment Forum"
+companionDescription: "A thoughtful response arguing that reward maximization alone may not be sufficient for general intelligence."
 completed: false
 ---
 
-Establishes power-law relationships between model performance and compute, dataset size, and parameter count. This paper fundamentally changed how labs think about training runs and resource allocation.
+A provocative hypothesis from DeepMind: that reward maximization in sufficiently rich environments is enough to give rise to all facets of intelligence — perception, language, social reasoning, and more. A direct descendant of the reinforcement learning tradition, and a great paper for debating what intelligence actually requires.
