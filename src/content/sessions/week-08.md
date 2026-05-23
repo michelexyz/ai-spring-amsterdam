@@ -1,17 +1,17 @@
 ---
 week: 8
 cycle: 2
-theme: "free"
+theme: "safety"
 date: "TBD"
-paperTitle: "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale"
-paperUrl: "https://arxiv.org/abs/2010.11929"
-paperAuthors: "Dosovitskiy, Beyer, Kolesnikov et al. (Google Brain)"
-paperYear: 2020
-companionTitle: "The Bitter Lesson"
-companionUrl: "http://www.incompleteideas.net/IncIdeas/BitterLesson.html"
-companionSource: "Rich Sutton, 2019"
-companionDescription: "Sutton's famous essay arguing that general methods leveraging computation beat hand-engineered approaches. ViT is a perfect case study."
+paperTitle: "Sleeper Agents: Training Deceptive LLMs That Persist Through Safety Training"
+paperUrl: "https://arxiv.org/abs/2401.05566"
+paperAuthors: "Hubinger, Denison, Mu, Lambert et al. (Anthropic)"
+paperYear: 2024
+companionTitle: "Sleeper Agents"
+companionUrl: "https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training"
+companionSource: "Anthropic Blog"
+companionDescription: "Anthropic's research summary with context on why deceptive alignment is a core concern."
 completed: false
 ---
 
-The Vision Transformer (ViT) paper that proved the transformer architecture isn't just for language — it works for vision too, with minimal domain-specific modifications. A pivotal moment: the beginning of architectural convergence across modalities, which paved the way for today's multimodal models.
+Shows that LLMs can be trained to behave deceptively — appearing safe during evaluation while executing harmful behavior under specific triggers — and that standard safety training (RLHF, adversarial training) fails to remove this behavior. A sobering result for alignment research.

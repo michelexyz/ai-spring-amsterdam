@@ -1,17 +1,17 @@
 ---
 week: 6
 cycle: 2
-theme: "sota"
+theme: "free"
 date: "TBD"
-paperTitle: "Training Language Models to Follow Instructions with Human Feedback"
-paperUrl: "https://arxiv.org/abs/2203.02155"
-paperAuthors: "Ouyang, Wu, Jiang, Almeida et al. (OpenAI)"
-paperYear: 2022
-companionTitle: "RLHF: Reinforcement Learning from Human Feedback"
-companionUrl: "https://huyenchip.com/2023/05/02/rlhf.html"
-companionSource: "Chip Huyen"
-companionDescription: "A clear, technically detailed walkthrough of the RLHF pipeline — from preference data collection to reward modeling to PPO."
+paperTitle: "Scaling Laws for Neural Language Models"
+paperUrl: "https://arxiv.org/abs/2001.08361"
+paperAuthors: "Kaplan, McCandlish, Henighan, Brown et al."
+paperYear: 2020
+companionTitle: "The Scaling Hypothesis"
+companionUrl: "https://gwern.net/scaling-hypothesis"
+companionSource: "Gwern"
+companionDescription: "A deep, opinionated synthesis of what scaling laws mean for the trajectory of AI."
 completed: false
 ---
 
-The InstructGPT paper that introduced RLHF at scale. This is the technique that turned base language models into useful assistants, and it remains the backbone of how frontier models are aligned today.
+Establishes power-law relationships between model performance and compute, dataset size, and parameter count. This paper fundamentally changed how labs think about training runs and resource allocation.
