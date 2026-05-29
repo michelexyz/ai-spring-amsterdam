@@ -1,17 +1,19 @@
 ---
 week: 6
 cycle: 2
-theme: "free"
-date: "TBD"
-paperTitle: "Scaling Laws for Neural Language Models"
-paperUrl: "https://arxiv.org/abs/2001.08361"
-paperAuthors: "Kaplan, McCandlish, Henighan, Brown et al."
+theme: "foundation"
+date: "4 June 2026"
+paperTitle: "Deep Learning is Singular, and That's Good"
+paperUrl: "https://arxiv.org/abs/2010.11560"
+paperAuthors: "Murfet, Wei, Gong, Li, Gell-Redman, Quella"
 paperYear: 2020
-companionTitle: "The Scaling Hypothesis"
-companionUrl: "https://gwern.net/scaling-hypothesis"
-companionSource: "Gwern"
-companionDescription: "A deep, opinionated synthesis of what scaling laws mean for the trajectory of AI."
+companionTitle: "Neural networks generalize because of this one weird trick"
+companionUrl: "https://www.lesswrong.com/posts/fovfuFdpuEwQzJu2w"
+companionSource: "LessWrong"
+companionDescription: "An accessible introduction to Singular Learning Theory and why neural networks' loss landscapes are fundamentally non-regular."
 completed: false
+presenter: "arturo"
+location: "VU Amsterdam"
 ---
 
-Establishes power-law relationships between model performance and compute, dataset size, and parameter count. This paper fundamentally changed how labs think about training runs and resource allocation.
+An introduction to Singular Learning Theory: the loss landscapes of neural networks are not the smooth, well-behaved objects classical statistics assumes — they are singular, and that turns out to explain why deep learning generalizes at all. Presented by Arturo Abril at Vrije Universiteit.
