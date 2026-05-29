@@ -7,8 +7,8 @@ paperTitle: "Reward is Enough"
 paperUrl: "https://www.sciencedirect.com/science/article/pii/S0004370221000862"
 paperAuthors: "Silver, Singh, Precup, Sutton"
 paperYear: 2021
-companionTitle: "Reward is Not Enough"
-companionUrl: "https://youtu.be/dmH1ZpcROMk?si=kvBgztfvKEV-c7Rt"
+companionTitle: "Reward is Enough (Machine Learning Research Paper Explained)"
+companionUrl: "https://www.youtube.com/watch?v=dmH1ZpcROMk"
 companionSource: "Yannic Kilcher"
 companionDescription: "Explainer video."
 completed: true
