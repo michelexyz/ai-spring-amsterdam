@@ -13,5 +13,4 @@ companionSource: "Yannic Kilcher"
 companionDescription: "Explainer video."
 completed: true
 ---
-s
 A provocative hypothesis from DeepMind: that reward maximization in sufficiently rich environments is enough to give rise to all facets of intelligence — perception, language, social reasoning, and more. A direct descendant of the reinforcement learning tradition, and a great paper for debating what intelligence actually requires.
