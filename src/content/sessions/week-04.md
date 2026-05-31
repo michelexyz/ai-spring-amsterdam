@@ -1,7 +1,7 @@
 ---
 week: 4
 cycle: 1
-theme: "foundation"
+theme: "free"
 date: "14 May 2026"
 paperTitle: "Reward is Enough"
 paperUrl: "https://www.sciencedirect.com/science/article/pii/S0004370221000862"
