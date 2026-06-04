@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SessionCard from '../components/SessionCard.astro';
 import { getCollection } from 'astro:content';
-import mailIcon from '../icons/mail.svg';
+import whatsappIcon from '../icons/whatsapp.svg';
 import participants from '../data/participants.json';
 
 
@@ -28,10 +28,10 @@ const presenterUrl = presenter?.link;
     <p class="subtitle">
       A weekly reading group exploring the foundations of intelligence and the safety of AI systems.
     </p>
-    <!--mail -->
-    <a href="mailto:aispringamsterdam@outlook.com" class="btn">
-      <img src={mailIcon.src} alt="" class="mail-icon" loading="lazy" aria-hidden="true" />
-      Write to aispringamsterdam@outlook.com in order to join.
+    <!-- WhatsApp community invite -->
+    <a href="https://chat.whatsapp.com/FV0TUOtFYNt0EBNcg99G2d" class="btn" target="_blank" rel="noopener noreferrer">
+      Join the community
+      <img src={whatsappIcon.src} alt="WhatsApp" class="mail-icon" loading="lazy" aria-hidden="true" />
     </a>
   </section>
 
@@ -108,13 +108,12 @@ const presenterUrl = presenter?.link;
 <style>
   
   a.btn {
-    background-color:  rgb(70, 146, 221);
-  }
-  a.btn {
-    box-shadow: 0 12px 28px rgba(70, 146, 221, 0.28);
+    background-color: #25D366;
+    box-shadow: 0 12px 28px rgba(37, 211, 102, 0.28);
   }
 
   a.btn:hover {
-    box-shadow: 0 16px 36px rgba(70, 146, 221, 0.34);
+    background-color: #1ebe5b;
+    box-shadow: 0 16px 36px rgba(37, 211, 102, 0.34);
   }
 </style>
