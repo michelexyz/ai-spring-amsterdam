@@ -40,5 +40,12 @@
     "link": "https://www.linkedin.com/in/dujevukovac/",
     "affiliation": "Vrije Universiteit Amsterdam",
     "role": "CS Student"
+  },
+  "zheng": {
+    "name": "Zheng",
+    "surname": "Chen",
+    "link": "https://www.linkedin.com/in/zheng-chen-434232365/",
+    "affiliation": "Vrije Universiteit Amsterdam",
+    "role": "AI Master's Student"
   }
 }
