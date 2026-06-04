@@ -67,7 +67,7 @@ const participantEntries = Object.entries(participants);
       <p>
         We're a group of AI Master's graduates and researchers based in Amsterdam. 
       </p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 16px;">
+      <div id="participants-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 16px;">
         {participantEntries.map(([id, p]) => (
           <ParticipantCard
             name={p.name}
@@ -100,3 +100,16 @@ const participantEntries = Object.entries(participants);
   </section>
 
 </Layout>
+
+<script>
+  // Shuffle participant cards on every page load (Fisher-Yates).
+  const grid = document.getElementById('participants-grid');
+  if (grid) {
+    const cards = Array.from(grid.children);
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+    cards.forEach((card) => grid.appendChild(card));
+  }
+</script>
