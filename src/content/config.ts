@@ -1,5 +1,8 @@
 import { defineCollection, z } from 'astro:content';
 
+// A URL, or an empty string for TBD/placeholder weeks that don't have one yet.
+const urlOrEmpty = z.string().url().or(z.literal(''));
+
 const sessions = defineCollection({
   type: 'content',
   schema: z.object({
@@ -10,13 +13,13 @@ const sessions = defineCollection({
 
     // Main paper
     paperTitle: z.string(),
-    paperUrl: z.string().url(),
+    paperUrl: urlOrEmpty,
     paperAuthors: z.string(),
     paperYear: z.number(),
 
     // Companion
     companionTitle: z.string(),
-    companionUrl: z.string().url(),
+    companionUrl: urlOrEmpty,
     companionSource: z.string(),
     companionDescription: z.string().optional(),
 
