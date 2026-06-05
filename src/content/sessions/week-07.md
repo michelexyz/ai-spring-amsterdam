@@ -1,17 +1,17 @@
 ---
 week: 7
 cycle: 2
-theme: "sota"
+theme: "safety"
 date: "TBD"
-paperTitle: "Training Language Models to Follow Instructions with Human Feedback"
-paperUrl: "https://arxiv.org/abs/2203.02155"
-paperAuthors: "Ouyang, Wu, Jiang, Almeida et al. (OpenAI)"
-paperYear: 2022
-companionTitle: "RLHF: Reinforcement Learning from Human Feedback"
-companionUrl: "https://huyenchip.com/2023/05/02/rlhf.html"
-companionSource: "Chip Huyen"
-companionDescription: "A clear, technically detailed walkthrough of the RLHF pipeline — from preference data collection to reward modeling to PPO."
+paperTitle: "Sleeper Agents: Training Deceptive LLMs That Persist Through Safety Training"
+paperUrl: "https://arxiv.org/abs/2401.05566"
+paperAuthors: "Hubinger, Denison, Mu, Lambert et al. (Anthropic)"
+paperYear: 2024
+companionTitle: "Sleeper Agents"
+companionUrl: "https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training"
+companionSource: "Anthropic Blog"
+companionDescription: "Anthropic's research summary with context on why deceptive alignment is a core concern."
 completed: false
 ---
 
-The InstructGPT paper that introduced RLHF at scale. This is the technique that turned base language models into useful assistants, and it remains the backbone of how frontier models are aligned today.
+Shows that LLMs can be trained to behave deceptively — appearing safe during evaluation while executing harmful behavior under specific triggers — and that standard safety training (RLHF, adversarial training) fails to remove this behavior. A sobering result for alignment research.
