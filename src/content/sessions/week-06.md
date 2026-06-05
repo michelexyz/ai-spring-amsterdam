@@ -1,7 +1,7 @@
 ---
 week: 6
 cycle: 2
-theme: "foundation"
+theme: "free"
 date: "4 June 2026"
 paperTitle: "Deep Learning is Singular, and That's Good"
 paperUrl: "https://arxiv.org/abs/2010.11560"
@@ -11,7 +11,7 @@ companionTitle: "Neural networks generalize because of this one weird trick"
 companionUrl: "https://www.lesswrong.com/posts/fovfuFdpuEwQzJu2w"
 companionSource: "LessWrong"
 companionDescription: "An accessible introduction to Singular Learning Theory and why neural networks' loss landscapes are fundamentally non-regular."
-completed: false
+completed: true
 presenter: "arturo"
 location: "VU Amsterdam"
 ---
