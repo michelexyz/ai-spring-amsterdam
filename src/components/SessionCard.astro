@@ -111,16 +111,18 @@ const otherAttendees = (attendees ?? []).filter((a) => !presenterIsAttendee(a));
       {Astro.slots.has('description') ? <slot name="description" /> : <p style="margin-bottom: 0;">{description}</p>}
     </div>
 
-    <div class="companion">
-      <div class="companion-label">Companion reading</div>
-      <a href={companionUrl} target="_blank" rel="noopener">{companionTitle}</a>
-      <span style="color: var(--text-tertiary); font-size: 0.85rem;"> — {companionSource}</span>
-      {companionDescription && (
-        <p style="font-size: 0.92rem; color: var(--text-primary); margin-top: 6px; margin-bottom: 0;">
-          {companionDescription}
-        </p>
-      )}
-    </div>
+    {companionTitle && (
+      <div class="companion">
+        <div class="companion-label">Companion reading</div>
+        <a href={companionUrl} target="_blank" rel="noopener">{companionTitle}</a>
+        <span style="color: var(--text-tertiary); font-size: 0.85rem;"> — {companionSource}</span>
+        {companionDescription && (
+          <p style="font-size: 0.92rem; color: var(--text-primary); margin-top: 6px; margin-bottom: 0;">
+            {companionDescription}
+          </p>
+        )}
+      </div>
+    )}
 
     {alternatives && alternatives.length > 0 && (
       <div class="alternatives-block">
@@ -224,16 +226,18 @@ const otherAttendees = (attendees ?? []).filter((a) => !presenterIsAttendee(a));
         {Astro.slots.has('description') ? <slot name="description" /> : <p style="margin-bottom: 0;">{description}</p>}
       </div>
 
-      <div class="companion">
-        <div class="companion-label">Companion reading</div>
-        <a href={companionUrl} target="_blank" rel="noopener">{companionTitle}</a>
-        <span style="color: var(--text-tertiary); font-size: 0.85rem;"> — {companionSource}</span>
-        {companionDescription && (
-          <p style="font-size: 0.92rem; color: var(--text-primary); margin-top: 6px; margin-bottom: 0;">
-            {companionDescription}
-          </p>
-        )}
-      </div>
+      {companionTitle && (
+        <div class="companion">
+          <div class="companion-label">Companion reading</div>
+          <a href={companionUrl} target="_blank" rel="noopener">{companionTitle}</a>
+          <span style="color: var(--text-tertiary); font-size: 0.85rem;"> — {companionSource}</span>
+          {companionDescription && (
+            <p style="font-size: 0.92rem; color: var(--text-primary); margin-top: 6px; margin-bottom: 0;">
+              {companionDescription}
+            </p>
+          )}
+        </div>
+      )}
 
       {alternatives && alternatives.length > 0 && (
         <div class="alternatives-block">

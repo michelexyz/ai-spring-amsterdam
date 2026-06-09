@@ -2,16 +2,22 @@
 week: 7
 cycle: 2
 theme: "safety"
-date: "TBD"
-paperTitle: "Sleeper Agents: Training Deceptive LLMs That Persist Through Safety Training"
-paperUrl: "https://arxiv.org/abs/2401.05566"
-paperAuthors: "Hubinger, Denison, Mu, Lambert et al. (Anthropic)"
-paperYear: 2024
-companionTitle: "Sleeper Agents"
-companionUrl: "https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training"
-companionSource: "Anthropic Blog"
-companionDescription: "Anthropic's research summary with context on why deceptive alignment is a core concern."
+date: "10 June 2026 · 5:30 PM"
+paperTitle: "When AI builds itself"
+paperUrl: "https://www.anthropic.com/institute/recursive-self-improvement"
+paperAuthors: "Marina Favaro & Jack Clark (Anthropic)"
+paperYear: 2026
+companionTitle: ""
+companionUrl: ""
+companionSource: ""
+location: "Oerknal, Science Park (UvA)"
 completed: false
 ---
 
-Shows that LLMs can be trained to behave deceptively — appearing safe during evaluation while executing harmful behavior under specific triggers — and that standard safety training (RLHF, adversarial training) fails to remove this behavior. A sobering result for alignment research.
+This week's discussion is in collaboration with [Safe AI Netherlands](https://safeainetherlands.org/chapters/amsterdam).
+
+📍 We're meeting at [Oerknal in Science Park (UvA)](https://maps.app.goo.gl/8W5UCiReJuTVSswq6), this Wednesday at 5:30 PM.
+
+📄 The reading is Anthropic's new blog post — no background required (~30 min read). It looks at the current rate of AI progress, and in particular how far along we are on the path to fully automated self-improvement (AI that can independently do AI research), while addressing existential safety concerns.
+
+All are welcome! 🌸
