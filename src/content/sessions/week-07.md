@@ -13,7 +13,7 @@ companionSource: ""
 location: "Oerknal, Science Park (UvA)"
 completed: true
 images:
-  - "AI_Spring_week_07.jpg"
+  - "AI_Spring_week_07.jpeg"
 imagesCaptions:
   - "A change of scenery as you can see! We had a relaxing discussion at the bar about a non-relaxing topic :)Indeed, the safety aspects of AI are getting more and more concering, but it is nice to face these issues together"
 ---
