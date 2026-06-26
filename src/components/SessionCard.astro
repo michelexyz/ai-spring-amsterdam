@@ -14,7 +14,7 @@ interface Props {
   paperTitle: string;
   paperUrl: string;
   paperAuthors: string;
-  paperYear: number;
+  paperYear?: number;
   description?: string;
   companionTitle: string;
   companionUrl: string;
@@ -71,6 +71,8 @@ const {
   defaultExpanded = false,
 } = Astro.props;
 
+const byline = [paperAuthors, paperYear].filter(Boolean).join(', ');
+
 const presenterIsAttendee = (a: Attendee) =>
   presenterName && `${a.name} ${a.surname}`.trim() === presenterName;
 const otherAttendees = (attendees ?? []).filter((a) => !presenterIsAttendee(a));
@@ -88,7 +90,7 @@ const otherAttendees = (attendees ?? []).filter((a) => !presenterIsAttendee(a));
 
     <div>
       <a href={paperUrl} target="_blank" rel="noopener" class="paper-title">{paperTitle}</a>
-      <div class="authors">{paperAuthors}, {paperYear}</div>
+      <div class="authors">{byline}</div>
     </div>
 
     {(presenterName || location) && (
@@ -194,7 +196,7 @@ const otherAttendees = (attendees ?? []).filter((a) => !presenterIsAttendee(a));
 
       <div>
         <a href={paperUrl} target="_blank" rel="noopener" class="paper-title">{paperTitle}</a>
-        <div class="authors">{paperAuthors}, {paperYear}</div>
+        <div class="authors">{byline}</div>
       </div>
 
       {(presenterName || location) && (

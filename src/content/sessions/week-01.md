@@ -2,7 +2,7 @@
 week: 1
 cycle: 1
 theme: "foundation"
-date: "21 April 2026"
+date: 2026-04-21
 paperTitle: "An Explanation of In-context Learning as Implicit Bayesian Inference"
 paperUrl: "https://arxiv.org/abs/2111.02080"
 paperAuthors: "Xie, Raghunathan, Liang, Ma"

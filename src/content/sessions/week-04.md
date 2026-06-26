@@ -2,7 +2,7 @@
 week: 4
 cycle: 1
 theme: "free"
-date: "14 May 2026"
+date: 2026-05-14
 paperTitle: "Reward is Enough"
 paperUrl: "https://www.sciencedirect.com/science/article/pii/S0004370221000862"
 paperAuthors: "Silver, Singh, Precup, Sutton"

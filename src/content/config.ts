@@ -9,13 +9,14 @@ const sessions = defineCollection({
     week: z.number(),
     cycle: z.number(),
     theme: z.enum(['foundation', 'sota', 'safety', 'free']),
-    date: z.string().optional(),
+    date: z.coerce.date().optional(),
+    time: z.string().optional(),
 
     // Main paper
     paperTitle: z.string(),
     paperUrl: urlOrEmpty,
     paperAuthors: z.string(),
-    paperYear: z.number(),
+    paperYear: z.number().optional(),
 
     // Companion
     companionTitle: z.string(),

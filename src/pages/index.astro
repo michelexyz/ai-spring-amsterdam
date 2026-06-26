@@ -4,6 +4,7 @@ import SessionCard from '../components/SessionCard.astro';
 import { getCollection } from 'astro:content';
 import whatsappIcon from '../icons/whatsapp.svg';
 import participants from '../data/participants.json';
+import { formatSessionDate } from '../utils/date';
 
 
 const sessions = await getCollection('sessions');
@@ -41,7 +42,7 @@ const presenterUrl = presenter?.link;
     <SessionCard
       week={nextSession.data.week}
       theme={nextSession.data.theme}
-      date={nextSession.data.date}
+      date={formatSessionDate(nextSession.data.date, nextSession.data.time)}
       paperTitle={nextSession.data.paperTitle}
       paperUrl={nextSession.data.paperUrl}
       paperAuthors={nextSession.data.paperAuthors}

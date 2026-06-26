@@ -2,7 +2,7 @@
 week: 0
 cycle: 0
 theme: "foundation"
-date: "17 April 2026"
+date: 2026-04-17
 paperTitle: "On The Measure of Intelligence"
 paperUrl: "https://arxiv.org/abs/1911.01547"
 paperAuthors: "François Chollet (Google)"

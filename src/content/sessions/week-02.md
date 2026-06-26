@@ -2,7 +2,7 @@
 week: 2
 cycle: 1
 theme: "sota"
-date: "30 April 2026"
+date: 2026-04-30
 paperTitle: "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning"
 paperUrl: "https://arxiv.org/abs/2501.12948"
 paperAuthors: "DeepSeek-AI"

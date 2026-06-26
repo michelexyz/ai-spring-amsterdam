@@ -2,7 +2,7 @@
 week: 5
 cycle: 2
 theme: "foundation"
-date: "28 May 2026"
+date: 2026-05-28
 paperTitle: "Scaling Laws for Neural Language Models"
 paperUrl: "https://arxiv.org/abs/2001.08361"
 paperAuthors: "Kaplan, McCandlish, Henighan, Brown et al."

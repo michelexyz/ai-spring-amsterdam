@@ -4,6 +4,7 @@ import SessionCard from '../components/SessionCard.astro';
 import HereFab from '../components/HereFab.astro';
 import { getCollection } from 'astro:content';
 import participants from '../data/participants.json';
+import { formatSessionDate } from '../utils/date';
 
 const sessions = await getCollection('sessions');
 const sorted = sessions.sort((a, b) => a.data.week - b.data.week);
@@ -70,7 +71,7 @@ const cycleLabel = (cycle: number) => {
           <SessionCard
             week={item.session.data.week}
             theme={item.session.data.theme}
-            date={item.session.data.date}
+            date={formatSessionDate(item.session.data.date, item.session.data.time)}
             paperTitle={item.session.data.paperTitle}
             paperUrl={item.session.data.paperUrl}
             paperAuthors={item.session.data.paperAuthors}

@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import SessionCard from './SessionCard.astro';
 import type { CollectionEntry } from 'astro:content';
+import { formatSessionDate } from '../utils/date';
 
 interface Attendee {
   name: string;
@@ -18,6 +19,8 @@ interface Props {
 }
 
 const { session, Content, presenterName, presenterUrl, attendees } = Astro.props;
+
+const formattedDate = formatSessionDate(session.data.date, session.data.time);
 
 const imageModules = import.meta.glob<{ default: ImageMetadata }>(
   '../content/images/*.{jpg,jpeg,png,webp,avif}',
@@ -43,7 +46,7 @@ const images = (session.data.images ?? []).map((filename: string, i: number) => 
   <header class="gallery-session__header">
     <h2 class="gallery-session__title">{session.data.paperTitle}</h2>
     <div class="gallery-session__meta">
-      Week {session.data.week}{session.data.date && <> · {session.data.date}</>}
+      Week {session.data.week}{formattedDate && <> · {formattedDate}</>}
     </div>
   </header>
 
@@ -73,7 +76,7 @@ const images = (session.data.images ?? []).map((filename: string, i: number) => 
       <SessionCard
         week={session.data.week}
         theme={session.data.theme}
-        date={session.data.date}
+        date={formattedDate}
         paperTitle={session.data.paperTitle}
         paperUrl={session.data.paperUrl}
         paperAuthors={session.data.paperAuthors}

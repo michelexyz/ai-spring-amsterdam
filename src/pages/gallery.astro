@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import SessionGallery from '../components/SessionGallery.astro';
 import { getCollection } from 'astro:content';
 import participants from '../data/participants.json';
+import { formatSessionDate } from '../utils/date';
 
 const all = await getCollection('sessions');
 const withImages = all
@@ -48,7 +49,7 @@ const rendered = await Promise.all(
         <>
           {i > 0 && (
             <div class="cycle-header gallery-divider">
-              Week {item.session.data.week}{item.session.data.date && <> · {item.session.data.date}</>}
+              Week {item.session.data.week}{formatSessionDate(item.session.data.date, item.session.data.time) && <> · {formatSessionDate(item.session.data.date, item.session.data.time)}</>}
             </div>
           )}
           <SessionGallery

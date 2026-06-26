@@ -2,7 +2,7 @@
 week: 3
 cycle: 1
 theme: "safety"
-date: "7 May 2026"
+date: 2026-05-07
 paperTitle: "Emotions in LLMs (Parts 1 & 2)"
 paperUrl: "https://transformer-circuits.pub/2026/emotions/index.html"
 paperAuthors: "Anthropic"

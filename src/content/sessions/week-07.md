@@ -2,7 +2,8 @@
 week: 7
 cycle: 2
 theme: "safety"
-date: "10 June 2026 · 5:30 PM"
+date: 2026-06-10
+time: "5:30 PM"
 paperTitle: "When AI builds itself"
 paperUrl: "https://www.anthropic.com/institute/recursive-self-improvement"
 paperAuthors: "Marina Favaro & Jack Clark (Anthropic)"

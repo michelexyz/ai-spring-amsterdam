@@ -282,9 +282,16 @@ nav .nav-links a.active {
 .session-card .meta {
   display: flex;
   align-items: center;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   font-size: 0.85rem;
   color: var(--text-secondary);
+}
+
+/* Keep each chunk (badge, "Week N", date) on a single line — wrap the
+   whole item to the next row instead of breaking its text mid-word. */
+.session-card .meta > * {
+  white-space: nowrap;
 }
 
 .session-card h3 {

@@ -2,7 +2,7 @@
 week: 6
 cycle: 2
 theme: "free"
-date: "4 June 2026"
+date: 2026-06-04
 paperTitle: "Deep Learning is Singular, and That's Good"
 paperUrl: "https://arxiv.org/abs/2010.11560"
 paperAuthors: "Murfet, Wei, Gong, Li, Gell-Redman, Quella"
